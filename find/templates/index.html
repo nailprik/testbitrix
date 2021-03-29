@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Title</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <center>
+      {{access_token}}
+      <div id="example-2">
+        <button class="btn btn-primary" v-on:click="greet">Find</button>
+        {% verbatim %}
+        <div v-for="item in info">
+          {{ item }}
+        </div>
+        {% endverbatim %}
+      </div>
+    </center>
+    <script>
+      var example2 = new Vue({
+        el: "#example-2",
+        data: {
+          name: "Vue.js",
+          info: null
+        },
+        // определяйте методы в объекте `methods`
+        methods: {
+          greet: function (event) {
+            axios
+              .get("duplicates?access_token={{ access_token }}&domain={{ domain }}")
+              .then((response) => (this.info = response.data));
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
